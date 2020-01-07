@@ -31,6 +31,7 @@ On l'as choisi car il permet d'avoir une arborescence compréhensible tout en ay
 
 Le projet se sépare en deux processus, le serveur d'API et le serveur de l'appweb.
 
+<<<<<<< HEAD
 #### API
 Pour installer l'API :
 `npm install`.
@@ -58,3 +59,6 @@ Pour build le projet et le minifier :
 Pour lancer le projet, on utilise encore [pm2](https://pm2.keymetrics.io/) :
 `pm2 start serve.sh`. Le fichier `serve.sh` lance la commande `serve --single --listen 3500 dist`. 
 `serve` permet de servir un dossier donné en argument, ici `dist`, sur le port 3500.
+=======
++ Pour lancer le serveur de l'appweb il faut aller dans `/appweb/` et utiliser la commande `npm run serve`. Il peut etre interessant d'aller voir [le setup de la webapp](./appweb/README.md) 
+>>>>>>> a8e64eb... doc: Update webapp documentation with default logo needed.
