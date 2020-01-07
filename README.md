@@ -4,7 +4,7 @@
 
 La refonte d'Assomaker est un projet qui depuis quelques années est dans les discussions. 
 Le logiciel devient vieux et les technologies utilisées associé au manque de documentation
-rends la maintenance et l'exploitation assez difficile. L'objectif de ce projet est, en 
+rends la maintenance et l'exploitation assez difficile. L'objectif de ce projet est, en
 plus de reproduire les fonctions essentielles d'Assomaker, de mettre au goût du jour les
 technologies utilisées.
 
@@ -13,25 +13,27 @@ Une nouvelle interface au _workflow_ plus intuitif permettra aux utilisateurs de
 créer, afficher ou affecter.
 
 ### Technologies
+
 Les langages web actuels (en 2019) sont principalement Javascript, Python ou Java. Le choix de Javascript a été
 motivé par le fait d'avoir le _front-end_ et le _back-end_ dans le même langage, étant assez facilement compréhensible
 pour quiconque ait un minimum de compétence en programmation web.
 Les technologies utilisées sont pour l'API :
-+ _Express_ : ce framework web permet de structurer le serveur web, en permettant de créer des requêtes très facilement, 
-tout en étant très efficace.
-+ _Sequelize_ : cet ORM (_Object-Relationnal Manager_) permet d'avoir une surcouche gérant les intéractions avec la base de données.
-Il permet aussi de rendre le code plus facilement lisible, et donc plus facilement maintenable. De plus, si jamais on doit changer
- de moteur de base de données, le changement se fait de façon transparente.
+
+- _Express_ : ce framework web permet de structurer le serveur web, en permettant de créer des requêtes très facilement,
+  tout en étant très efficace.
+- _Sequelize_ : cet ORM (_Object-Relationnal Manager_) permet d'avoir une surcouche gérant les intéractions avec la base de données.
+  Il permet aussi de rendre le code plus facilement lisible, et donc plus facilement maintenable. De plus, si jamais on doit changer
+  de moteur de base de données, le changement se fait de façon transparente.
 
 Pour l'application web :
-+ _VueJS_ : ce framework de front-end permet de construire rapidement des applications avec une logique de composants réutilisables. 
-On l'as choisi car il permet d'avoir une arborescence compréhensible tout en ayant une complexité suffisante pour notre projet.
+
+- _VueJS_ : ce framework de front-end permet de construire rapidement des applications avec une logique de composants réutilisables.
+  On l'as choisi car il permet d'avoir une arborescence compréhensible tout en ayant une complexité suffisante pour notre projet.
 
 ### Installer et lancer le Projet A
 
 Le projet se sépare en deux processus, le serveur d'API et le serveur de l'appweb.
 
-<<<<<<< HEAD
 #### API
 Pour installer l'API :
 `npm install`.
@@ -53,12 +55,15 @@ Pour installer l'appweb :
 
 Pour lancer l'appweb : 
 `npm run serve`. Cette commande lance le serveur de dev avec le hot-reload. 
+Il peut etre interessant d'aller voir [le setup de la webapp](./appweb/README.md) 
 
 Pour build le projet et le minifier : 
 `npm run build`, cette commande compile le projet dans le dossier `/dist`.
 Pour lancer le projet, on utilise encore [pm2](https://pm2.keymetrics.io/) :
 `pm2 start serve.sh`. Le fichier `serve.sh` lance la commande `serve --single --listen 3500 dist`. 
 `serve` permet de servir un dossier donné en argument, ici `dist`, sur le port 3500.
-=======
-+ Pour lancer le serveur de l'appweb il faut aller dans `/appweb/` et utiliser la commande `npm run serve`. Il peut etre interessant d'aller voir [le setup de la webapp](./appweb/README.md) 
->>>>>>> a8e64eb... doc: Update webapp documentation with default logo needed.
+
+
+### Mocker des features de l'API
+
+Il est possible de simuler des reponses provenant d'une API (par exemple pour tester le model de donnees avant de faire les developpement cote back-end). Pour cela nous utilisons [json-server](https://github.com/typicode/json-server) avec la commande `json-server --watch appweb/test/mockedDb.json`. Les requetes de tests devront alors s'effectuer vers `localhost:3000`.

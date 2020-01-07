@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "surname": "Shagasse",
+      "firstname": "Leo",
+      "lastname": "Mouyna",
+      "score": 425,
+      "teams": ["hard", "moth'"],
+      "availabilities": [
+        {
+          "start": "2020-05-09T08:00:00+00:00",
+          "end": "2020-05-15T23:30:00+00:00"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "surname": "Bob",
+      "firstname": "John",
+      "lastname": "Ratignier",
+      "score": 650,
+      "teams": ["hard", "communication"],
+      "availabilities": [
+        {
+          "start": "2020-05-09T08:00:00+00:00",
+          "end": "2020-05-10T08:00:00+00:00"
+        },
+        {
+          "start": "2020-05-10T10:00:00+00:00",
+          "end": "2020-05-15T23:30:00+00:00"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Make Assomaker greate again",
+      "description": "Some interesting description: ",
+      "instances": [
+        {
+          "neededWorkers": 4,
+          "workers": [
+            {
+              "id": 2,
+              "surmame": "Bob",
+              "firstname": "John",
+              "lastname": "Ratignier"
+            }
+          ],
+          "start": "2020-05-12T13:30:00+00:00",
+          "end": "2020-05-12T14:45:00+00:00",
+          "meetingPlace": {
+            "name": "QG Orga",
+            "location": {
+              "type": "Point",
+              "coordinates": [45.7839486, 4.8740307]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bob unavailable",
+      "description": "Some interesting description: ",
+      "instances": [
+        {
+          "neededWorkers": 1,
+          "workers": [],
+          "start": "2020-05-10T08:30:00+00:00",
+          "end": "2020-05-10T10:30:00+00:00",
+          "meetingPlace": {
+            "name": "GCU Sendrage",
+            "location": {
+              "type": "Point",
+              "coordinates": [45.78401, 4.87788]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "teams": [
+    { "name": "moth'" },
+    { "name": "communication" },
+    { "name": "hard" },
+    { "name": "human ressources" },
+    { "name": "soft" }
+  ]
+}
