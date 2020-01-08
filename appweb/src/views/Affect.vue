@@ -14,6 +14,7 @@
 <script>
 import User from "../components/assignment/User";
 export default {
-  name: "Affect"
+  name: "Affect",
+  components: { User }
 };
 </script>

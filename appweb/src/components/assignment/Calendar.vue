@@ -50,8 +50,8 @@ export default {
     return {
       from: new Date(),
       maxDays: 15,
-      to: null
       days: 5,
+      to: null
     };
   },
   methods: {
