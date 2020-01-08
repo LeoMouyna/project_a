@@ -10,7 +10,7 @@
     <v-list flat nav>
       <v-list-item>
         <v-col class="align-center" absolute>
-          <v-img src="@/assets/logo.png" alt="24h logo"></v-img>
+          <v-img src="@/assets/logo.svg" alt="24h logo"></v-img>
         </v-col>
       </v-list-item>
 

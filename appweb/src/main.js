@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import config from "./config";
 
 import axios from "axios";
+import moment from "moment";
 
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
@@ -16,6 +17,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$host = config.host;
+Vue.prototype.$moment = moment;
 Vue.prototype.$momentLocale = config.locale || "en";
 
 export const eventBus = new Vue();
