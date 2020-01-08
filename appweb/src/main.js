@@ -7,6 +7,11 @@ import config from "./config";
 
 import axios from "axios";
 
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
+
+Vue.use(Buefy);
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$axios = axios;
