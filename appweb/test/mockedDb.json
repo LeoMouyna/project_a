@@ -6,14 +6,29 @@
       "firstname": "Leo",
       "lastname": "Mouyna",
       "score": 425,
-      "teams": ["hard", "moth'"],
+      "teams": [
+        { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+        { "id": 3, "name": "moth'", "color": "#f72cba", "confidenceLevel": 3, "priority": 7 }
+      ],
       "availabilities": [
         {
           "start": "2020-05-09T08:00:00+00:00",
           "end": "2020-05-15T23:30:00+00:00"
         }
       ],
-      "restPeriods": [
+      "assignments": 1
+    },
+    {
+      "id": 2,
+      "surname": "Bob",
+      "firstname": "John",
+      "lastname": "Ratignier",
+      "score": 625,
+      "teams": [
+        { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+        { "id": 6, "name": "communication", "color": "#ffa000", "confidenceLevel": 3, "priority": 6 }
+      ],
+      "availabilities": [
         {
           "start": "2020-01-12T02:00:00+00:00",
           "end": "2020-01-12T07:30:00+00:00"
@@ -23,13 +38,23 @@
           "end": "2020-01-10T04:00:00.000Z"
         },
         {
-          "start": "2020-01-10T23:00:00.000Z",
-          "end": "2020-01-12T02:00:00.000Z"
-        },
-        {
-          "start": "2020-01-13T05:00:00.000Z",
-          "end": "2020-01-13T06:00:00.000Z"
-        },
+          "start": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T18:00:00.000Z"
+        }
+      ],
+      "assignments": 2
+    },
+    {
+      "id": 3,
+      "firstname": "Thomas",
+      "lastname": "George",
+      "surname": "Ginny",
+      "teams": [
+        { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+        { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 }
+      ],
+      "score": 1290,
+      "availabilities": [
         {
           "start": "2020-01-13T00:30:00.000Z",
           "end": "2020-01-13T01:00:00.000Z"
@@ -42,7 +67,10 @@
       "firstname": "John",
       "lastname": "Ratignier",
       "score": 650,
-      "teams": ["hard", "communication"],
+      "teams": [
+        { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+        { "id": 4, "name": "catering", "color": "#c0ca33", "confidenceLevel": 3, "priority": 6 }
+      ],
       "availabilities": [
         {
           "start": "2020-05-09T08:00:00+00:00",
@@ -64,57 +92,216 @@
   "tasks": [
     {
       "id": 1,
-      "name": "Make Assomaker greate again",
-      "description": "Some interesting description: ",
-      "instances": [
+      "name": "Rest",
+      "description": "Rest for some time",
+      "team": { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+      "supervisor": {
+        "id": 3,
+        "firstname": "Thomas",
+        "lastname": "George",
+        "surname": "Ginny",
+        "teams": [
+          { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+          { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 }
+        ]
+      },
+      "meetingPlace": {
+        "name": "QG Orga",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [],
+      "start": "2020-01-21T00:00:00+00:00",
+      "end": "2020-01-21T08:00:00+00:00",
+      "displayedColor": "#f06292",
+      "requiredUsers": [
         {
-          "neededWorkers": 4,
-          "workers": [
-            {
-              "id": 2,
-              "surmame": "Bob",
-              "firstname": "John",
-              "lastname": "Ratignier"
-            }
+          "id": 1,
+          "firstname": "Leo",
+          "lastname": "Mouyna",
+          "surname": "Shagasse",
+          "teams": [
+            { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+            { "id": 3, "name": "moth'", "color": "#f72cba", "confidenceLevel": 3, "priority": 7 }
           ],
-          "start": "2020-05-12T13:30:00+00:00",
-          "end": "2020-05-12T14:45:00+00:00",
-          "meetingPlace": {
-            "name": "QG Orga",
-            "location": {
-              "type": "Point",
-              "coordinates": [45.7839486, 4.8740307]
+          "assigned": [
+            {
+              "id": 1,
+              "firstname": "Leo",
+              "lastname": "Mouyna",
+              "surname": "Shagasse",
+              "teams": [
+                { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+                { "id": 3, "name": "moth'", "color": "#f72cba", "confidenceLevel": 3, "priority": 7 }
+              ]
             }
-          }
+          ]
         }
       ]
     },
     {
       "id": 2,
-      "name": "Bob unavailable",
-      "description": "Some interesting description: ",
-      "instances": [
+      "name": "Do the dishes with a verry long name that cannot be displayed correctlly.",
+      "description": "Do the dishes from the catering team.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis mauris at lacus tincidunt posuere. Maecenas vitae ex non urna imperdiet suscipit et sed tortor. Nullam sed faucibus eros, vitae mollis ipsum. Aenean blandit commodo dui at ornare. Ut ac sapien sit amet tellus maximus egestas egestas quis sem. Nulla facilisi. Vivamus dapibus bibendum tellus, sed egestas nulla porta sed. Donec efficitur sit amet massa in mattis.\nNullam magna quam, imperdiet ac bibendum sed, ullamcorper quis neque. Sed mollis sodales arcu ut auctor. Praesent fermentum laoreet dui, tristique ultrices enim lacinia ac. Mauris vitae est sit amet sapien interdum varius. Suspendisse cursus dui ipsum, et ultrices ipsum sagittis at. Maecenas maximus in quam eget varius. Nunc cursus sagittis ex eu feugiat. Donec augue purus, eleifend sit amet porta in, sollicitudin accumsan lacus. Nullam eu mi magna. Do the dishes from the catering team. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis mauris at lacus tincidunt posuere. Maecenas vitae ex non urna imperdiet suscipit et sed tortor. Nullam sed faucibus eros, vitae mollis ipsum. Aenean blandit commodo dui at ornare. Ut ac sapien sit amet tellus maximus egestas egestas quis sem. Nulla facilisi. Vivamus dapibus bibendum tellus, sed egestas nulla porta sed. Donec efficitur sit amet massa in mattis.\nNullam magna quam, imperdiet ac bibendum sed, ullamcorper quis neque. Sed mollis sodales arcu ut auctor. Praesent fermentum laoreet dui, tristique ultrices enim lacinia ac. Mauris vitae est sit amet sapien interdum varius. Suspendisse cursus dui ipsum, et ultrices ipsum sagittis at. Maecenas maximus in quam eget varius. Nunc cursus sagittis ex eu feugiat. Donec augue purus, eleifend sit amet porta in, sollicitudin accumsan lacus. Nullam eu mi magna. Do the dishes from the catering team. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis mauris at lacus tincidunt posuere. Maecenas vitae ex non urna imperdiet suscipit et sed tortor. Nullam sed faucibus eros, vitae mollis ipsum. Aenean blandit commodo dui at ornare. Ut ac sapien sit amet tellus maximus egestas egestas quis sem. Nulla facilisi. Vivamus dapibus bibendum tellus, sed egestas nulla porta sed. Donec efficitur sit amet massa in mattis.\nNullam magna quam, imperdiet ac bibendum sed, ullamcorper quis neque. Sed mollis sodales arcu ut auctor. Praesent fermentum laoreet dui, tristique ultrices enim lacinia ac. Mauris vitae est sit amet sapien interdum varius. Suspendisse cursus dui ipsum, et ultrices ipsum sagittis at. Maecenas maximus in quam eget varius. Nunc cursus sagittis ex eu feugiat. Donec augue purus, eleifend sit amet porta in, sollicitudin accumsan lacus. Nullam eu mi magna.",
+      "team": { "id": 4, "name": "catering", "color": "#c0ca33", "confidenceLevel": 3, "priority": 6 },
+      "supervisor": {
+        "id": 4,
+        "firstname": "Axelle",
+        "lastname": "Huet",
+        "surname": "GHB",
+        "teams": [
+          { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+          { "id": 4, "name": "catering", "color": "#c0ca33", "confidenceLevel": 3, "priority": 6 }
+        ]
+      },
+      "meetingPlace": {
+        "name": "Catering kitchen",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [
         {
-          "neededWorkers": 1,
-          "workers": [],
-          "start": "2020-05-10T08:30:00+00:00",
-          "end": "2020-05-10T10:30:00+00:00",
-          "meetingPlace": {
-            "name": "GCU Sendrage",
-            "location": {
-              "type": "Point",
-              "coordinates": [45.78401, 4.87788]
-            }
+          "number": 3,
+          "equipment": {
+            "id": 1,
+            "name": "sponge"
           }
         }
+      ],
+      "start": "2020-01-22T05:00:00+00:00",
+      "end": "2020-01-22T08:00:00+00:00",
+      "displayedColor": "#c0ca33",
+      "requiredUsers": [
+        {
+          "number": 1,
+          "team": {
+            "id": 4,
+            "name": "Catering"
+          },
+          "assigned": [
+            {
+              "id": 4,
+              "firstname": "Axelle",
+              "lastname": "Huet",
+              "surname": "GHB",
+              "teams": [
+                { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+                { "id": 4, "name": "catering", "color": "#c0ca33", "confidenceLevel": 3, "priority": 6 }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "team": {
+            "id": 2,
+            "name": "hard"
+          },
+          "assigned": [
+            {
+              "id": 1,
+              "firstname": "Leo",
+              "lastname": "Mouyna",
+              "surname": "Shagasse",
+              "teams": [
+                { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+                { "id": 3, "name": "moth'", "color": "#f72cba", "confidenceLevel": 3, "priority": 7 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Tweet wall",
+      "description": "Publish on tweet wall during night event",
+      "team": {
+        "id": 6,
+        "name": "communication"
+      },
+      "supervisor": {
+        "id": 2,
+        "surname": "Bob",
+        "firstname": "John",
+        "lastname": "Ratignier",
+        "teams": [
+          { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+          { "id": 6, "name": "communication", "color": "#ffa000", "confidenceLevel": 3, "priority": 6 }
+        ]
+      },
+      "meetingPlace": {
+        "name": "Backline cabine",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [
+        {
+          "number": 3,
+          "equipment": {
+            "id": 1,
+            "name": "sponge"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "A mixed task",
+      "description": "You have a lot to do !",
+      "team": { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+      "supervisor": {
+        "id": 3,
+        "firstname": "Thomas",
+        "lastname": "George",
+        "surname": "Ginny",
+        "teams": [
+          { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+          { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 }
+        ]
+      },
+      "meetingPlace": {
+        "name": "QG Orga",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [],
+      "start": "2020-01-28T00:00:00+00:00",
+      "end": "2020-01-28T08:00:00+00:00",
+      "displayedColor": "#f06292",
+      "requiredUsers": [
+        {
+            "number": 4,
+            "team": { "id": 5, "name": "soft", "color": "#f77d2c", "confidenceLevel": 0, "priority": 1 },
+            "assigned": []
+        },
+        {
+          "number": 2,
+          "team": { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+          "assigned": []
+      },
+      {
+        "number": 1,
+        "team": { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+        "assigned": []
+    }
       ]
     }
   ],
   "teams": [
-    { "name": "moth'" },
-    { "name": "communication" },
-    { "name": "hard" },
-    { "name": "human ressources" },
-    { "name": "soft" }
+    { "id": 1, "name": "human ressources", "color": "#f06292", "confidenceLevel": 3, "priority": 4 },
+    { "id": 2, "name": "hard", "color": "#f77d2c", "confidenceLevel": 2, "priority": 1 },
+    { "id": 3, "name": "moth'", "color": "#f72cba", "confidenceLevel": 3, "priority": 7 },
+    { "id": 4, "name": "catering", "color": "#c0ca33", "confidenceLevel": 3, "priority": 6 },
+    { "id": 5, "name": "soft", "color": "#f77d2c", "confidenceLevel": 0, "priority": 1 },
+    { "id": 6, "name": "communication", "color": "#ffa000", "confidenceLevel": 3, "priority": 6 }
   ]
 }
