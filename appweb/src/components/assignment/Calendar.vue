@@ -29,10 +29,16 @@
         >
         </b-numberinput>
       </b-field>
+      <b-field label="Zoom">
+        <b-field grouped>
+          <b-button icon-right="plus" @click="doubleHourHeight" />
+          <b-button icon-right="minus" @click="divideHourHeight(2)" />
+        </b-field>
+      </b-field>
     </b-field>
     <v-row>
       <v-col sm="12" lg="9" class="mb-4 controls">
-        <v-sheet height="600">
+        <v-sheet height="690">
           <v-calendar
             ref="calendar"
             :start="formatDate(from, false)"
@@ -43,6 +49,7 @@
             :event-color="getEventColor"
             color="primary"
             type="custom-daily"
+            :interval-height="hourHeight"
           >
             <template v-slot:interval="{ hour, date }">
               <div
@@ -88,7 +95,8 @@ export default {
       interval: {
         start: new Date(),
         end: new Date()
-      }
+      },
+      hourHeight: 25
     };
   },
   computed: {
@@ -112,6 +120,12 @@ export default {
     }
   },
   methods: {
+    doubleHourHeight() {
+      this.hourHeight = this.hourHeight * 2;
+    },
+    divideHourHeight(number) {
+      this.hourHeight = this.hourHeight / number;
+    },
     setClickedInterval({ date, hour }) {
       this.setInterval({ date, hour, field: "start" });
       this.setInterval({ date, hour: hour + 1, field: "end" });
