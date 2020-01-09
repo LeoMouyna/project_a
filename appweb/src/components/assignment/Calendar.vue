@@ -39,29 +39,66 @@
         :maxDays="days"
         color="primary"
         type="custom-daily"
-      ></v-calendar>
+      >
+        <template v-slot:interval="{ hour, date }">
+          <div
+            draggable="true"
+            @click="setClickedInterval({ date, hour })"
+            @dragstart="setInterval({ date, hour, field: 'start' })"
+            @dragover="setInterval({ date, hour, field: 'end' })"
+            @dragend="checkInterval"
+            class="hour-interval"
+          ></div>
+        </template>
+      </v-calendar>
     </v-sheet>
+    <p>Start: {{ interval.start }}</p>
+    <p>End: {{ interval.end }}</p>
   </section>
 </template>
 
 <script>
+import "../../mixins/dateMixin";
 export default {
   data() {
     return {
       from: new Date(),
       maxDays: 15,
       days: 5,
-      to: null
+      to: null,
+      interval: {
+        start: null,
+        end: null
+      }
     };
   },
   methods: {
     formatDate(date) {
       return this.$moment(date).format("YYYY-MM-DD");
+    },
+    setClickedInterval({ date, hour }) {
+      this.setInterval({ date, hour, field: "start" });
+      this.setInterval({ date, hour: hour + 1, field: "end" });
+    },
+    setInterval({ date, hour, field }) {
+      const value = new Date(`${date} ${hour > 9 ? hour : "0" + hour}:00`);
+      this.$set(this.interval, field, value);
+    },
+    checkInterval() {
+      if (this.interval.start > this.interval.end) {
+        this.revertInterval(this.interval, this.interval);
+      }
+    },
+    revertInterval(obj, { start, end }) {
+      this.$set(obj, "start", end);
+      this.$set(obj, "end", start);
+    },
+    printMessage(m) {
+      console.log(m);
     }
   },
   mounted() {
-    this.to = new Date();
-    this.to.setDate(this.from.getDate() + this.days);
+    this.to = this.from.addDays(this.days);
   },
   props: {
     name: String,
@@ -72,4 +109,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.hour-interval {
+  width: 100%;
+  height: 100%;
+}
+</style>
