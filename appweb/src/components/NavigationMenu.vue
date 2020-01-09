@@ -109,8 +109,8 @@ export default {
         icon: "mdi-account-multiple",
         url: "/affect",
         items: [
-          { title: "By user", url: "/user" },
-          { title: "By task", url: "/task" }
+          { title: "By user", url: "/users" },
+          { title: "By task", url: "/tasks" }
         ]
       }
     ]

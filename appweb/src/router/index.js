@@ -22,6 +22,12 @@ const routes = [
       import(/* webpackChunkName: "affect" */ "../views/Affect.vue")
   },
   {
+    path: "/affect/users",
+    name: "affectUsers",
+    component: () =>
+      import(/* webpackChunkName: "affect" */ "../views/Affect.vue")
+  },
+  {
     path: "/create/user",
     name: "create_user",
     component: () =>
