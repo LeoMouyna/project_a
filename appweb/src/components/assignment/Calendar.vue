@@ -30,36 +30,55 @@
         </b-numberinput>
       </b-field>
     </b-field>
-    <v-sheet height="600">
-      <v-calendar
-        ref="calendar"
-        :start="formatDate(from)"
-        :end="formatDate(to)"
-        :events="events"
-        :maxDays="days"
-        color="primary"
-        type="custom-daily"
-      >
-        <template v-slot:interval="{ hour, date }">
-          <div
-            draggable="true"
-            @click="setClickedInterval({ date, hour })"
-            @dragstart="setInterval({ date, hour, field: 'start' })"
-            @dragover="setInterval({ date, hour, field: 'end' })"
-            @dragend="checkInterval"
-            class="hour-interval"
-          ></div>
-        </template>
-      </v-calendar>
-    </v-sheet>
-    <p>Start: {{ interval.start }}</p>
-    <p>End: {{ interval.end }}</p>
+    <v-row>
+      <v-col sm="12" lg="9" class="mb-4 controls">
+        <v-sheet height="600">
+          <v-calendar
+            ref="calendar"
+            :start="formatDate(from, false)"
+            :end="formatDate(to, false)"
+            :events="calendarEvents"
+            :maxDays="days"
+            :short-intervals="false"
+            :event-color="getEventColor"
+            color="primary"
+            type="custom-daily"
+          >
+            <template v-slot:interval="{ hour, date }">
+              <div
+                draggable="true"
+                @click="setClickedInterval({ date, hour })"
+                @dragstart="setInterval({ date, hour, field: 'start' })"
+                @dragover="setInterval({ date, hour, field: 'end' })"
+                @dragend="checkInterval"
+                class="hour-interval"
+              ></div>
+            </template>
+          </v-calendar>
+        </v-sheet>
+      </v-col>
+      <v-col sm="12" lg="3" class="mb-4 controls">
+        <aside-user
+          v-if="type == 'user'"
+          :interval="interval"
+          :interval-available="checkIntervalAvailable"
+          @assign:rest="setToRest"
+        />
+      </v-col>
+    </v-row>
   </section>
 </template>
 
 <script>
 import "../../mixins/dateMixin";
+import { HTTP } from "../../services/httpService";
+import AsideUser from "./AsideUser";
+import { eventMixin } from "../../mixins/eventMixin";
 export default {
+  mixins: [eventMixin],
+  components: {
+    AsideUser
+  },
   data() {
     return {
       from: new Date(),
@@ -67,15 +86,32 @@ export default {
       days: 5,
       to: null,
       interval: {
-        start: null,
-        end: null
+        start: new Date(),
+        end: new Date()
       }
     };
   },
-  methods: {
-    formatDate(date) {
-      return this.$moment(date).format("YYYY-MM-DD");
+  computed: {
+    calendarEvents() {
+      const event = [
+        this.generateEvent(this.interval, "blue lighten-4", "Time slot")
+      ];
+      return this.events.concat(event);
     },
+    checkIntervalAvailable() {
+      const filters = this.events
+        .map(event => {
+          return { start: new Date(event.start), end: new Date(event.end) };
+        })
+        .filter(event => {
+          return (
+            event.end > this.interval.start && event.start < this.interval.end
+          );
+        });
+      return filters.length == 0;
+    }
+  },
+  methods: {
     setClickedInterval({ date, hour }) {
       this.setInterval({ date, hour, field: "start" });
       this.setInterval({ date, hour: hour + 1, field: "end" });
@@ -83,6 +119,16 @@ export default {
     setInterval({ date, hour, field }) {
       const value = new Date(`${date} ${hour > 9 ? hour : "0" + hour}:00`);
       this.$set(this.interval, field, value);
+    },
+    setToRest(interval) {
+      const restPeriod = { start: interval.start, end: interval.end };
+      this.object.restPeriods.push(restPeriod);
+      HTTP.patch(`users/${this.object.id}`, {
+        restPeriods: this.object.restPeriods
+      });
+      this.events.push(
+        this.generateEvent(interval, "red accent-4", "Rest time")
+      );
     },
     checkInterval() {
       if (this.interval.start > this.interval.end) {
@@ -92,9 +138,6 @@ export default {
     revertInterval(obj, { start, end }) {
       this.$set(obj, "start", end);
       this.$set(obj, "end", start);
-    },
-    printMessage(m) {
-      console.log(m);
     }
   },
   mounted() {
@@ -104,7 +147,7 @@ export default {
     name: String,
     object: Object,
     type: { type: String, default: "user" },
-    events: Array
+    events: { type: Array, default: () => [] }
   }
 };
 </script>
