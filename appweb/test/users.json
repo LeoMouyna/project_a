@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "surname": "Shagasse",
+      "firstname": "Leo",
+      "lastname": "Mouyna",
+      "score": 425,
+      "teams": [
+        { "id": 2, "name": "hard" },
+        { "id": 3, "name": "moth'" }
+      ],
+      "availabilities": [
+        {
+          "start": "2020-01-13T08:00:00.000Z",
+          "end": "2020-01-14T05:00:00.000Z"
+        },
+        {
+          "start": "2020-01-14T08:00:00.000Z",
+          "end": "2020-01-16T00:00:00.000Z"
+        }
+      ],
+      "assignments": 1
+    },
+    {
+      "id": 2,
+      "surname": "Bob",
+      "firstname": "John",
+      "lastname": "Ratignier",
+      "score": 625,
+      "teams": [
+        { "id": 2, "name": "hard" },
+        { "id": 6, "name": "communication" }
+      ],
+      "availabilities": [
+        {
+          "start": "2020-01-13T12:00:00.000Z",
+          "end": "2020-01-14T08:00:00.000Z"
+        },
+        {
+          "start": "2020-01-14T08:30:00.000Z",
+          "end": "2020-01-14T10:30:00.000Z"
+        },
+        {
+          "start": "2020-01-14T14:00:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        }
+      ],
+      "assignments": 2
+    },
+    {
+      "id": 3,
+      "firstname": "Thomas",
+      "lastname": "George",
+      "surname": "Ginny",
+      "teams": [
+        { "id": 1, "name": "human ressources" },
+        { "id": 2, "name": "hard" }
+      ],
+      "score": 1290,
+      "availabilities": [
+        {
+          "start": "2020-01-10T00:00:00.000Z",
+          "end": "2020-01-20T08:00:00.000Z"
+        }
+      ],
+      "assignments": 3
+    },
+    {
+      "id": 4,
+      "firstname": "Axelle",
+      "lastname": "Huet",
+      "surname": "GHB",
+      "teams": [
+        { "id": 2, "name": "hard" },
+        { "id": 4, "name": "catering" }
+      ],
+      "score": 755,
+      "availabilities": [
+        {
+          "start": "2020-01-15T00:00:00.000Z",
+          "end": "2020-01-19T08:00:00.000Z"
+        }
+      ],
+      "assignments": 4
+    },
+    {
+      "id": 5,
+      "firstname": "Super",
+      "lastname": "Soft",
+      "surname": "SS",
+      "teams": [
+        {
+          "id": 5,
+          "name": "soft"
+        }
+      ],
+      "score": 1470,
+      "availabilities": [
+        {
+          "start": "2020-01-12T00:00:00.000Z",
+          "end": "2020-01-23T08:00:00.000Z"
+        }
+      ],
+      "assignments": 5
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "assignments": [
+    { "id": 1, "taskInstances": [1, 2] },
+    { "id": 2, "taskInstances": [] },
+    { "id": 3, "taskInstances": [] },
+    { "id": 4, "taskInstances": [2] }
+  ]
+}

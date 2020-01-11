@@ -1,0 +1,10 @@
+{
+  "teams": [
+    { "id": 1, "name": "human ressources" },
+    { "id": 2, "name": "hard" },
+    { "id": 3, "name": "moth'" },
+    { "id": 4, "name": "catering" },
+    { "id": 5, "name": "soft" },
+    { "id": 6, "name": "communication" }
+  ]
+}

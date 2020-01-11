@@ -1,0 +1,126 @@
+{
+  "taskInstances": [
+    {
+      "id": 1,
+      "name": "Rest",
+      "description": "Rest for some time",
+      "supervisor": {
+        "id": 3,
+        "firstname": "Thomas",
+        "lastname": "George",
+        "surname": "Ginny",
+        "teams": [
+          { "id": 1, "name": "human ressources" },
+          { "id": 2, "name": "hard" }
+        ]
+      },
+      "meetingPlace": {
+        "name": "QG Orga",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [],
+      "start": "2020-05-13T00:00:00+00:00",
+      "end": "2020-05-13T08:00:00+00:00",
+      "displayedColor": "red accent-4",
+      "requiredUsers": [
+        {
+          "id": 1,
+          "firstname": "Leo",
+          "lastname": "Mouyna",
+          "surname": "Shagasse",
+          "teams": [
+            { "id": 2, "name": "hard" },
+            { "id": 3, "name": "moth'" }
+          ]
+        }
+      ],
+      "assignedUsers": [
+        {
+          "id": 1,
+          "firstname": "Leo",
+          "lastname": "Mouyna",
+          "surname": "Shagasse",
+          "teams": [
+            { "id": 2, "name": "hard" },
+            { "id": 3, "name": "moth'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Do the dishes",
+      "description": "Do the dishes from the catering team",
+      "supervisor": {
+        "id": 4,
+        "firstname": "Axelle",
+        "lastname": "Huet",
+        "surname": "GHB",
+        "teams": [
+          { "id": 2, "name": "hard" },
+          { "id": 4, "name": "catering" }
+        ]
+      },
+      "meetingPlace": {
+        "name": "Catering kitchen",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [
+        {
+          "number": 3,
+          "equipment": {
+            "id": 1,
+            "name": "sponge"
+          }
+        }
+      ],
+      "start": "2020-05-14T05:00:00+00:00",
+      "end": "2020-05-14T08:00:00+00:00",
+      "displayedColor": "lime accent-1",
+      "requiredUsers": [
+        {
+          "number": 1,
+          "team": {
+            "id": 4,
+            "name": "Catering"
+          }
+        },
+        {
+          "number": 3,
+          "team": {
+            "id": 2,
+            "name": "hard"
+          }
+        }
+      ],
+      "assignedUsers": [
+        {
+          "id": 4,
+          "firstname": "Axelle",
+          "lastname": "Huet",
+          "surname": "GHB",
+          "teams": [
+            { "id": 2, "name": "hard" },
+            { "id": 4, "name": "catering" }
+          ]
+        },
+        {
+          "id": 1,
+          "firstname": "Leo",
+          "lastname": "Mouyna",
+          "surname": "Shagasse",
+          "teams": [
+            { "id": 2, "name": "hard" },
+            { "id": 3, "name": "moth'" }
+          ]
+        }
+      ]
+    }
+  ]
+}
