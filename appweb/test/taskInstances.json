@@ -4,6 +4,7 @@
       "id": 1,
       "name": "Rest",
       "description": "Rest for some time",
+      "team": { "id": 1, "name": "human ressources" },
       "supervisor": {
         "id": 3,
         "firstname": "Thomas",
@@ -22,9 +23,9 @@
         }
       },
       "requiredEquipment": [],
-      "start": "2020-05-13T00:00:00+00:00",
-      "end": "2020-05-13T08:00:00+00:00",
-      "displayedColor": "red accent-4",
+      "start": "2020-01-21T00:00:00+00:00",
+      "end": "2020-01-21T08:00:00+00:00",
+      "displayedColor": "#f06292",
       "requiredUsers": [
         {
           "id": 1,
@@ -34,26 +35,27 @@
           "teams": [
             { "id": 2, "name": "hard" },
             { "id": 3, "name": "moth'" }
-          ]
-        }
-      ],
-      "assignedUsers": [
-        {
-          "id": 1,
-          "firstname": "Leo",
-          "lastname": "Mouyna",
-          "surname": "Shagasse",
-          "teams": [
-            { "id": 2, "name": "hard" },
-            { "id": 3, "name": "moth'" }
+          ],
+          "assigned": [
+            {
+              "id": 1,
+              "firstname": "Leo",
+              "lastname": "Mouyna",
+              "surname": "Shagasse",
+              "teams": [
+                { "id": 2, "name": "hard" },
+                { "id": 3, "name": "moth'" }
+              ]
+            }
           ]
         }
       ]
     },
     {
       "id": 2,
-      "name": "Do the dishes",
-      "description": "Do the dishes from the catering team",
+      "name": "Do the dishes with a verry long name that cannot be displayed correctlly.",
+      "description": "Do the dishes from the catering team. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis mauris at lacus tincidunt posuere. Maecenas vitae ex non urna imperdiet suscipit et sed tortor. Nullam sed faucibus eros, vitae mollis ipsum. Aenean blandit commodo dui at ornare. Ut ac sapien sit amet tellus maximus egestas egestas quis sem. Nulla facilisi. Vivamus dapibus bibendum tellus, sed egestas nulla porta sed. Donec efficitur sit amet massa in mattis.\nNullam magna quam, imperdiet ac bibendum sed, ullamcorper quis neque. Sed mollis sodales arcu ut auctor. Praesent fermentum laoreet dui, tristique ultrices enim lacinia ac. Mauris vitae est sit amet sapien interdum varius. Suspendisse cursus dui ipsum, et ultrices ipsum sagittis at. Maecenas maximus in quam eget varius. Nunc cursus sagittis ex eu feugiat. Donec augue purus, eleifend sit amet porta in, sollicitudin accumsan lacus. Nullam eu mi magna. ",
+      "team": { "id": 4, "name": "catering" },
       "supervisor": {
         "id": 4,
         "firstname": "Axelle",
@@ -80,45 +82,103 @@
           }
         }
       ],
-      "start": "2020-05-14T05:00:00+00:00",
-      "end": "2020-05-14T08:00:00+00:00",
-      "displayedColor": "lime accent-1",
+      "start": "2020-01-22T05:00:00+00:00",
+      "end": "2020-01-22T08:00:00+00:00",
+      "displayedColor": "#c0ca33",
       "requiredUsers": [
         {
           "number": 1,
           "team": {
             "id": 4,
             "name": "Catering"
-          }
+          },
+          "assigned": [
+            {
+              "id": 4,
+              "firstname": "Axelle",
+              "lastname": "Huet",
+              "surname": "GHB",
+              "teams": [
+                { "id": 2, "name": "hard" },
+                { "id": 4, "name": "catering" }
+              ]
+            }
+          ]
         },
         {
           "number": 3,
           "team": {
             "id": 2,
             "name": "hard"
+          },
+          "assigned": [
+            {
+              "id": 1,
+              "firstname": "Leo",
+              "lastname": "Mouyna",
+              "surname": "Shagasse",
+              "teams": [
+                { "id": 2, "name": "hard" },
+                { "id": 3, "name": "moth'" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Tweet wall",
+      "description": "Publish on tweet wall during night event",
+      "team": {
+        "id": 6,
+        "name": "communication"
+      },
+      "supervisor": {
+        "id": 2,
+        "surname": "Bob",
+        "firstname": "John",
+        "lastname": "Ratignier",
+        "teams": [
+          { "id": 2, "name": "hard" },
+          { "id": 6, "name": "communication" }
+        ]
+      },
+      "meetingPlace": {
+        "name": "Backline cabine",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [
+        {
+          "number": 3,
+          "equipment": {
+            "id": 1,
+            "name": "sponge"
           }
         }
       ],
-      "assignedUsers": [
+      "start": "2020-01-22T00:00:00+00:00",
+      "end": "2020-01-22T04:00:00+00:00",
+      "displayedColor": "#842cf7",
+      "requiredUsers": [
         {
-          "id": 4,
-          "firstname": "Axelle",
-          "lastname": "Huet",
-          "surname": "GHB",
-          "teams": [
-            { "id": 2, "name": "hard" },
-            { "id": 4, "name": "catering" }
-          ]
+          "number": 1,
+          "team": {
+            "id": 6,
+            "name": "communication"
+          },
+          "assigned": []
         },
         {
-          "id": 1,
-          "firstname": "Leo",
-          "lastname": "Mouyna",
-          "surname": "Shagasse",
-          "teams": [
-            { "id": 2, "name": "hard" },
-            { "id": 3, "name": "moth'" }
-          ]
+          "number": 1,
+          "team": {
+            "id": 2,
+            "name": "hard"
+          },
+          "assigned": []
         }
       ]
     }

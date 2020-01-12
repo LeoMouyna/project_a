@@ -3,7 +3,8 @@
     { "id": 1, "taskInstances": [1, 2] },
     { "id": 2, "taskInstances": [] },
     { "id": 3, "taskInstances": [] },
-    { "id": 4, "taskInstances": [2] }
+    { "id": 4, "taskInstances": [2] },
+    { "id": 5, "taskInstances": [] }
   ],
   "users": [
     {
@@ -18,12 +19,12 @@
       ],
       "availabilities": [
         {
-          "start": "2020-01-13T08:00:00.000Z",
-          "end": "2020-01-14T05:00:00.000Z"
+          "start": "2020-01-21T08:00:00.000Z",
+          "end": "2020-01-22T05:00:00.000Z"
         },
         {
-          "start": "2020-01-14T08:00:00.000Z",
-          "end": "2020-01-16T00:00:00.000Z"
+          "start": "2020-01-22T08:00:00.000Z",
+          "end": "2020-01-24T00:00:00.000Z"
         }
       ],
       "assignments": 1
@@ -40,12 +41,12 @@
       ],
       "availabilities": [
         {
-          "start": "2020-01-12T02:00:00+00:00",
-          "end": "2020-01-12T07:30:00+00:00"
+          "start": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-22T08:00:00.000Z"
         },
         {
-          "start": "2020-01-13T12:00:00.000Z",
-          "end": "2020-01-14T08:00:00.000Z"
+          "start": "2020-01-22T08:30:00.000Z",
+          "end": "2020-01-22T10:30:00.000Z"
         },
         {
           "start": "2020-01-22T14:00:00.000Z",
@@ -66,8 +67,8 @@
       "score": 1290,
       "availabilities": [
         {
-          "start": "2020-01-10T00:00:00.000Z",
-          "end": "2020-01-20T08:00:00.000Z"
+          "start": "2020-01-18T00:00:00.000Z",
+          "end": "2020-01-28T08:00:00.000Z"
         }
       ],
       "assignments": 3
@@ -84,8 +85,8 @@
       "score": 755,
       "availabilities": [
         {
-          "start": "2020-01-15T00:00:00.000Z",
-          "end": "2020-01-19T08:00:00.000Z"
+          "start": "2020-01-23T00:00:00.000Z",
+          "end": "2020-01-27T08:00:00.000Z"
         }
       ],
       "assignments": 4
@@ -104,8 +105,8 @@
       "score": 1470,
       "availabilities": [
         {
-          "start": "2020-01-12T00:00:00.000Z",
-          "end": "2020-01-23T08:00:00.000Z"
+          "start": "2020-01-20T00:00:00.000Z",
+          "end": "2020-01-31T08:00:00.000Z"
         }
       ],
       "assignments": 5
@@ -194,45 +195,103 @@
           }
         }
       ],
-      "start": "2020-05-14T05:00:00+00:00",
-      "end": "2020-05-14T08:00:00+00:00",
-      "displayedColor": "lime accent-1",
+      "start": "2020-01-22T05:00:00+00:00",
+      "end": "2020-01-22T08:00:00+00:00",
+      "displayedColor": "#c0ca33",
       "requiredUsers": [
         {
           "number": 1,
           "team": {
             "id": 4,
             "name": "Catering"
-          }
+          },
+          "assigned": [
+            {
+              "id": 4,
+              "firstname": "Axelle",
+              "lastname": "Huet",
+              "surname": "GHB",
+              "teams": [
+                { "id": 2, "name": "hard" },
+                { "id": 4, "name": "catering" }
+              ]
+            }
+          ]
         },
         {
           "number": 3,
           "team": {
             "id": 2,
             "name": "hard"
+          },
+          "assigned": [
+            {
+              "id": 1,
+              "firstname": "Leo",
+              "lastname": "Mouyna",
+              "surname": "Shagasse",
+              "teams": [
+                { "id": 2, "name": "hard" },
+                { "id": 3, "name": "moth'" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Tweet wall",
+      "description": "Publish on tweet wall during night event",
+      "team": {
+        "id": 6,
+        "name": "communication"
+      },
+      "supervisor": {
+        "id": 2,
+        "surname": "Bob",
+        "firstname": "John",
+        "lastname": "Ratignier",
+        "teams": [
+          { "id": 2, "name": "hard" },
+          { "id": 6, "name": "communication" }
+        ]
+      },
+      "meetingPlace": {
+        "name": "Backline cabine",
+        "location": {
+          "type": "Point",
+          "coordinates": [45.7839486, 4.8740307]
+        }
+      },
+      "requiredEquipment": [
+        {
+          "number": 3,
+          "equipment": {
+            "id": 1,
+            "name": "sponge"
           }
         }
       ],
-      "assignedUsers": [
+      "start": "2020-01-22T00:00:00+00:00",
+      "end": "2020-01-22T04:00:00+00:00",
+      "displayedColor": "#842cf7",
+      "requiredUsers": [
         {
-          "id": 4,
-          "firstname": "Axelle",
-          "lastname": "Huet",
-          "surname": "GHB",
-          "teams": [
-            { "id": 2, "name": "hard" },
-            { "id": 4, "name": "catering" }
-          ]
+          "number": 1,
+          "team": {
+            "id": 6,
+            "name": "communication"
+          },
+          "assigned": []
         },
         {
-          "id": 1,
-          "firstname": "Leo",
-          "lastname": "Mouyna",
-          "surname": "Shagasse",
-          "teams": [
-            { "id": 2, "name": "hard" },
-            { "id": 3, "name": "moth'" }
-          ]
+          "number": 1,
+          "team": {
+            "id": 2,
+            "name": "hard"
+          },
+          "assigned": []
         }
       ]
     },
