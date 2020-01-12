@@ -31,8 +31,12 @@
       </b-field>
       <b-field label="Zoom">
         <b-field grouped>
-          <b-button icon-right="plus" @click="doubleHourHeight" />
-          <b-button icon-right="minus" @click="divideHourHeight(2)" />
+          <b-button icon-right="plus" @click="hourHeight = hourHeight * 2" />
+          <b-button
+            icon-right="minus"
+            @click="hourHeight = Math.max(hourHeight / 2, 25)"
+            :disabled="hourHeight <= 25"
+          />
         </b-field>
       </b-field>
     </b-field>
@@ -50,11 +54,12 @@
             color="primary"
             type="custom-daily"
             :interval-height="hourHeight"
+            @click:time="setClickedInterval"
+            @click:event="showEvent"
           >
             <template v-slot:interval="{ hour, date }">
               <div
                 draggable="true"
-                @click="setClickedInterval({ date, hour })"
                 @dragstart="setInterval({ date, hour, field: 'start' })"
                 @dragover="setInterval({ date, hour, field: 'end' })"
                 @dragend="checkInterval"
@@ -69,7 +74,10 @@
           v-if="type == 'user'"
           :interval="interval"
           :interval-available="checkIntervalAvailable"
+          :available-tasks="availableTasks"
+          :user="object"
           @assign:rest="setToRest"
+          @assign:task="log"
         />
       </v-col>
     </v-row>
@@ -78,9 +86,9 @@
 
 <script>
 import "../../mixins/dateMixin";
-import { HTTP } from "../../services/httpService";
 import AsideUser from "./AsideUser";
 import { eventMixin } from "../../mixins/eventMixin";
+import { HTTP } from "../../services/httpService";
 export default {
   mixins: [eventMixin],
   components: {
@@ -96,13 +104,20 @@ export default {
         start: new Date(),
         end: new Date()
       },
-      hourHeight: 25
+      hourHeight: 25,
+      taskInstances: []
     };
   },
   computed: {
     calendarEvents() {
       const event = [
-        this.generateEvent(this.interval, "blue lighten-4", "Time slot")
+        this.generateEvent(
+          this.interval.start,
+          this.interval.end,
+          "blue lighten-4",
+          "Time slot",
+          "HR time slot selected"
+        )
       ];
       return this.events.concat(event);
     },
@@ -117,14 +132,51 @@ export default {
           );
         });
       return filters.length == 0;
+    },
+    availableTasks() {
+      // taskInstances during the time slot, with at least one requiredUser not full matching with user teams, where the selected user is not assigned yet
+      const start = this.interval.start;
+      const end = this.interval.end;
+      const userId = this.object.id;
+      const userTeamIds = this.object.teams.map(team => team.id);
+      return this.taskInstances.filter(
+        instance =>
+          new Date(instance.start) >= start &&
+          new Date(instance.end) <= end &&
+          this.userNeeded(instance, userTeamIds, userId) &&
+          !this.assignedUsersId(instance).includes(userId)
+      );
     }
   },
   methods: {
-    doubleHourHeight() {
-      this.hourHeight = this.hourHeight * 2;
+    assignedUsersId(instance) {
+      const list = instance.requiredUsers.flatMap(required =>
+        required.assigned.map(user => user.id)
+      );
+      return list;
     },
-    divideHourHeight(number) {
-      this.hourHeight = this.hourHeight / number;
+    userNeeded(instance, userTeamIds, userId) {
+      if ("requiredUsers" in instance) {
+        const test = instance.requiredUsers
+          .map(required => {
+            // Is my user needed but not assigned ?
+            if ("id" in required) {
+              return (
+                required.id == userId &&
+                !this.assignedUsersId(instance).includes(userId)
+              );
+            }
+            // Is one of my user teams match with not fully assigned required team members
+            else if ("number" in required) {
+              return (
+                required.assigned.length < required.number &&
+                userTeamIds.includes(required.team.id)
+              );
+            } else return false;
+          })
+          .includes(true);
+        return test;
+      } else return false;
     },
     setClickedInterval({ date, hour }) {
       this.setInterval({ date, hour, field: "start" });
@@ -135,14 +187,23 @@ export default {
       this.$set(this.interval, field, value);
     },
     setToRest(interval) {
-      const restPeriod = { start: interval.start, end: interval.end };
-      this.object.restPeriods.push(restPeriod);
-      HTTP.patch(`users/${this.object.id}`, {
-        restPeriods: this.object.restPeriods
-      });
+      //TODO: Send updates to back-end
       this.events.push(
-        this.generateEvent(interval, "red accent-4", "Rest time")
+        this.generateEvent(
+          interval.start,
+          interval.end,
+          "red accent-4",
+          "Rest time",
+          "Rest for some time"
+        )
       );
+    },
+    showEvent({ nativeEvent, event }) {
+      console.log(nativeEvent);
+      console.log(event);
+    },
+    log(m) {
+      console.log(m);
     },
     checkInterval() {
       if (this.interval.start > this.interval.end) {
@@ -156,6 +217,9 @@ export default {
   },
   mounted() {
     this.to = this.from.addDays(this.days);
+    HTTP.get(`taskInstances`).then(resp => {
+      this.taskInstances = resp.data;
+    });
   },
   props: {
     name: String,

@@ -61,9 +61,9 @@
           <b-taglist>
             <b-tag
               v-for="team in props.row.teams"
-              :key="team"
-              :type="`is-${team}`"
-              >{{ team }}</b-tag
+              :key="team.id"
+              :type="`is-${team.name.toKebabCase()}`"
+              >{{ team.name }}</b-tag
             >
           </b-taglist>
         </b-table-column>
@@ -148,10 +148,18 @@ export default {
 }
 .is-communication {
   background-color: #842cf7 !important;
-  color: white;
 }
-.is-moth\' {
+.is-moth {
   background-color: #f72cba !important;
+}
+.is-human-ressources {
+  background-color: #f06292 !important;
+}
+.is-catering {
+  background-color: #c0ca33 !important;
+}
+.is-soft {
+  background-color: #ffa000 !important;
 }
 
 .tag * {

@@ -5,21 +5,44 @@ export const eventMixin = {
         ? this.$moment(date).format("YYYY-MM-DD HH:mm")
         : this.$moment(date).format("YYYY-MM-DD");
     },
+    displayTimeSlot(timeslot) {
+      const days = this.dayDiff(timeslot.start, timeslot.end);
+      const ext = days > 0 ? `+ ${days} days` : "";
+      return `${this.formatTime(timeslot.start)} - ${this.formatTime(
+        timeslot.end
+      )} ${ext}`;
+    },
+    formatTime(date) {
+      return this.$moment(date).format("HH:mm");
+    },
+    dayDiff(date1, date2) {
+      const diffTime = Math.abs(date2 - date1);
+      return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    },
     getEventColor(event) {
       return event.color;
     },
-    generateEvent(interval, color, name) {
+    generateEvent(start, end, color, name, description) {
       return {
-        start: this.formatDate(interval.start, true),
-        end: this.formatDate(interval.end, true),
+        start: this.formatDate(start, true),
+        end: this.formatDate(end, true),
         color: color,
-        name: name
+        name: name,
+        description: description
       };
     },
-    generateEventsFromUser(user) {
+    generateEventsAssignment(assignments) {
       const events = [];
-      user.restPeriods.forEach(period => {
-        events.push(this.generateEvent(period, "red accent-4", "Rest time"));
+      assignments.forEach(taskInstance => {
+        events.push(
+          this.generateEvent(
+            taskInstance.start,
+            taskInstance.end,
+            taskInstance.displayedColor,
+            taskInstance.name,
+            taskInstance.description
+          )
+        );
       });
       return events;
     }

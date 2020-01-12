@@ -27,11 +27,23 @@
       >Rest</b-button
     >
     <!-- TODO: A time slot picker component -->
+    <h3 v-if="availableTasks.length > 0">Available tasks</h3>
+    <task-card
+      v-for="task in availableTasks"
+      :key="task.id"
+      :instance="task"
+      :user="user"
+      @assign="$emit('assign:task', $event)"
+    />
   </section>
 </template>
 
 <script>
+import TaskCard from "./TaskCard";
 export default {
+  components: {
+    TaskCard
+  },
   data() {
     return {
       timepicker: { incrementMinutes: 15 },
@@ -41,9 +53,9 @@ export default {
   },
   props: {
     interval: Object,
-    intervalAvailable: Boolean
+    intervalAvailable: Boolean,
+    availableTasks: { type: Array, default: () => [] },
+    user: Object
   }
 };
 </script>
-
-<style></style>
