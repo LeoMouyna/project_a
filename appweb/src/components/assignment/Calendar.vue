@@ -77,7 +77,7 @@
           :available-tasks="availableTasks"
           :user="object"
           @assign:rest="setToRest"
-          @assign:task="log"
+          @assign:task="sendAssignment"
         />
       </v-col>
     </v-row>
@@ -88,9 +88,10 @@
 import "../../mixins/dateMixin";
 import AsideUser from "./AsideUser";
 import { eventMixin } from "../../mixins/eventMixin";
+import { assignMixin } from "../../mixins/assignMixin";
 import { HTTP } from "../../services/httpService";
 export default {
-  mixins: [eventMixin],
+  mixins: [eventMixin, assignMixin],
   components: {
     AsideUser
   },
@@ -149,35 +150,6 @@ export default {
     }
   },
   methods: {
-    assignedUsersId(instance) {
-      const list = instance.requiredUsers.flatMap(required =>
-        required.assigned.map(user => user.id)
-      );
-      return list;
-    },
-    userNeeded(instance, userTeamIds, userId) {
-      if ("requiredUsers" in instance) {
-        const test = instance.requiredUsers
-          .map(required => {
-            // Is my user needed but not assigned ?
-            if ("id" in required) {
-              return (
-                required.id == userId &&
-                !this.assignedUsersId(instance).includes(userId)
-              );
-            }
-            // Is one of my user teams match with not fully assigned required team members
-            else if ("number" in required) {
-              return (
-                required.assigned.length < required.number &&
-                userTeamIds.includes(required.team.id)
-              );
-            } else return false;
-          })
-          .includes(true);
-        return test;
-      } else return false;
-    },
     setClickedInterval({ date, hour }) {
       this.setInterval({ date, hour, field: "start" });
       this.setInterval({ date, hour: hour + 1, field: "end" });
@@ -197,6 +169,10 @@ export default {
           "Rest for some time"
         )
       );
+    },
+    sendAssignment({ user, task, as }) {
+      const ret = this.assign(user, task, as);
+      console.log(ret);
     },
     showEvent({ nativeEvent, event }) {
       console.log(nativeEvent);
