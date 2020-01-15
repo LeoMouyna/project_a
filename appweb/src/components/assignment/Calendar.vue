@@ -51,6 +51,7 @@
             color="primary"
             type="custom-daily"
             :interval-height="hourHeight"
+            :interval-style="intervalStyle"
             @click:time="setClickedInterval"
             @click:event="showEvent"
           >
@@ -149,6 +150,17 @@ export default {
     }
   },
   methods: {
+    intervalStyle(interval) {
+      //TODO: Investigate on that
+      const inactive =
+        interval.weekday === 0 ||
+        interval.weekday === 6 ||
+        interval.hour < 9 ||
+        interval.hour >= 17;
+      return {
+        backgroundColor: inactive ? "rgba(0,0,0,0.05)" : undefined
+      };
+    },
     setClickedInterval({ date, hour }) {
       this.setInterval({ date, hour, field: "start" });
       this.setInterval({ date, hour: hour + 1, field: "end" });
@@ -188,6 +200,17 @@ export default {
     revertInterval(obj, { start, end }) {
       this.$set(obj, "start", end);
       this.$set(obj, "end", start);
+    },
+    isAvailable({ user, date, hour }) {
+      const interval = {
+        start: this.generateDate(date, hour),
+        end: this.generateDate(date, hour + 1)
+      };
+      const avaiability = this.getAvailabilityFromInterval(
+        user.avaiabilities,
+        interval
+      );
+      return avaiability ? true : false;
     }
   },
   mounted() {
