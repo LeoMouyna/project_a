@@ -7,8 +7,7 @@
           placeholder="Select a date"
           icon="calendar-today"
           v-model="from"
-        >
-        </b-datepicker>
+        />
       </b-field>
       <b-field label="To">
         <b-datepicker
@@ -16,8 +15,7 @@
           :min-date="from"
           icon="calendar-today"
           v-model="to"
-        >
-        </b-datepicker>
+        />
       </b-field>
       <b-field label="# of days">
         <b-numberinput
@@ -26,8 +24,7 @@
           :min="0"
           :max="maxDays"
           v-model="days"
-        >
-        </b-numberinput>
+        />
       </b-field>
       <b-field label="Zoom">
         <b-field grouped>
@@ -71,7 +68,7 @@
       </v-col>
       <v-col sm="12" lg="3" class="mb-4 controls">
         <aside-user
-          v-if="type == 'user'"
+          v-if="type == 'user' && interval.start && interval.end"
           :interval="interval"
           :interval-available="checkIntervalAvailable"
           :available-tasks="availableTasks"
@@ -102,8 +99,8 @@ export default {
       days: 5,
       to: null,
       interval: {
-        start: new Date(),
-        end: new Date()
+        start: undefined,
+        end: undefined
       },
       hourHeight: 25,
       taskInstances: []
@@ -111,16 +108,18 @@ export default {
   },
   computed: {
     calendarEvents() {
-      const event = [
-        this.generateEvent(
-          this.interval.start,
-          this.interval.end,
-          "blue lighten-4",
-          "Time slot",
-          "HR time slot selected"
-        )
-      ];
-      return this.events.concat(event);
+      if (this.interval.start && this.interval.end) {
+        const event = [
+          this.generateEvent(
+            this.interval.start,
+            this.interval.end,
+            "blue lighten-4",
+            "Time slot",
+            "HR time slot selected"
+          )
+        ];
+        return this.events.concat(event);
+      } else return this.events;
     },
     checkIntervalAvailable() {
       const filters = this.events
@@ -155,7 +154,7 @@ export default {
       this.setInterval({ date, hour: hour + 1, field: "end" });
     },
     setInterval({ date, hour, field }) {
-      const value = new Date(`${date} ${hour > 9 ? hour : "0" + hour}:00`);
+      const value = this.generateDate(date, hour);
       this.$set(this.interval, field, value);
     },
     setToRest(interval) {

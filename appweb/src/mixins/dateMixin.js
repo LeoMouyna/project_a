@@ -11,6 +11,9 @@ Date.prototype.addDays = function(days) {
 
 export const dateMixin = {
   methods: {
+    generateDate(date, hour) {
+      return new Date(`${date} ${hour > 9 ? hour : "0" + hour}:00`);
+    },
     // Used for sort:
     // If interval1 earlier than interval2 => return -1
     // If interval1 later interval2 => return 1
