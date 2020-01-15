@@ -11,6 +11,10 @@ Date.prototype.addDays = function(days) {
 
 export const dateMixin = {
   methods: {
+    endOfDayDate(date) {
+      date.setHours(23, 59, 59);
+      return date;
+    },
     generateDate(date, hour) {
       return new Date(`${date} ${hour > 9 ? hour : "0" + hour}:00`);
     },
@@ -35,6 +39,13 @@ export const dateMixin = {
         interval1.start >= interval2.start && interval1.end <= interval2.end
       );
     },
+    isCovering(interval1, interval2) {
+      return (
+        this.isIncludedIn(interval1, interval2) ||
+        (interval1.start < interval2.end && interval1.end >= interval2.end) ||
+        (interval1.start <= interval2.start && interval1.end > interval2.start)
+      );
+    },
     mergeInterval(interval1, interval2) {
       if (interval1.start == interval2.end) {
         return [Object.assign({}, interval2, { end: interval1.end })];
@@ -47,11 +58,15 @@ export const dateMixin = {
       } else return [interval1, interval2];
     },
     splitInterval(bigInterval, smallInterval) {
+      if (this.isIncludedIn(bigInterval, smallInterval)) {
+        // That means big interval is smaller than small interval
+        return [Object.assign({}, bigInterval, { start: bigInterval.end })];
+      }
       let intervals = [
         Object.assign({}, bigInterval, { end: smallInterval.start }),
         Object.assign({}, bigInterval, { start: smallInterval.end })
       ];
-      return intervals.filter(interval => interval.start != interval.end);
+      return intervals.filter(interval => interval.start < interval.end);
     }
   }
 };

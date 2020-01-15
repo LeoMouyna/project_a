@@ -15,6 +15,7 @@
           :min-date="from"
           icon="calendar-today"
           v-model="to"
+          @input="endOfDayDate($event)"
         />
       </b-field>
       <b-field label="# of days">
@@ -55,12 +56,12 @@
             @click:time="setClickedInterval"
             @click:event="showEvent"
           >
-            <template v-slot:interval="{ hour, date }">
+            <template v-slot:interval="{ hour, date, past }">
               <div
+                v-if="!isInactiveInterval({ hour, date, past })"
                 draggable="true"
-                @dragstart="setInterval({ date, hour, field: 'start' })"
-                @dragover="setInterval({ date, hour, field: 'end' })"
-                @dragend="checkInterval"
+                @dragstart="setInterval({ date, hour, past, field: 'start' })"
+                @dragover="setInterval({ date, hour, past, field: 'end' })"
                 class="hour-interval"
               ></div>
             </template>
@@ -147,23 +148,83 @@ export default {
           this.userNeeded(instance, userTeamIds, userId) &&
           !this.assignedUsersId(instance).includes(userId)
       );
+    },
+    userUnavailabilities() {
+      if (this.type == "user" && "availabilities" in this.object) {
+        let period = { start: this.from, end: this.to };
+        const availabilities = this.object.availabilities
+          .concat(this.events) // Get user availabilities and tasks he is assigned to.
+          .sort(this.compareDateInterval)
+          .map(av => {
+            // Convert element to timeslots with only start and end fields as Dates.
+            return {
+              start: new Date(av.start),
+              end: new Date(av.end)
+            };
+          })
+          .filter((
+            timeslot // Get only timeslot inside the range defined by from and to
+          ) => this.isCovering(timeslot, period));
+
+        let unavailabilities = availabilities.reduce(
+          (unavailabilities, currentTimeslot) => {
+            // Generate the unavailabilities according to previously defined timeslots
+            // We are reducing the range of period incrementally and
+            // try to split it till we don't have other timeslot available
+            const split = this.splitInterval(period, currentTimeslot);
+            // That means that the timeslot has a limit (start or end) equal to one of the period,
+            // period is set to the remaining uncomputed period
+            if (split.length == 1) {
+              period = split[0];
+              return unavailabilities;
+            } // That means the split go smoothly with a timeslot inside the period,
+            // period is set to the remaining uncomputed period and we generate an unavailability slot
+            else if (split.length == 2) {
+              period = split[1];
+              unavailabilities.push(split[0]);
+              return unavailabilities;
+            } // Default behaviour: do nothing with the accumulator and the period variable
+            else return unavailabilities;
+          },
+          []
+        );
+        // Add the remaining period as an unavailable timeslot
+        unavailabilities.push(period);
+        unavailabilities = unavailabilities.filter(
+          interval => interval.start < interval.end
+        );
+        return unavailabilities;
+      } else return [];
     }
   },
   methods: {
+    isInactiveInterval(interval) {
+      const period = {
+        start: this.generateDate(interval.date, interval.hour),
+        end: this.generateDate(interval.date, interval.hour + 1)
+      };
+      let inactive = interval.past;
+      if (this.userUnavailabilities.length > 0) {
+        inactive = this.userUnavailabilities.find(
+          unavailability =>
+            this.isCovering(period, unavailability) | interval.past
+        );
+        inactive = inactive ? true : false;
+      }
+      return inactive;
+    },
     intervalStyle(interval) {
-      //TODO: Investigate on that
-      const inactive =
-        interval.weekday === 0 ||
-        interval.weekday === 6 ||
-        interval.hour < 9 ||
-        interval.hour >= 17;
       return {
-        backgroundColor: inactive ? "rgba(0,0,0,0.05)" : undefined
+        backgroundColor: this.isInactiveInterval(interval)
+          ? "rgba(0,0,0,0.05)"
+          : undefined
       };
     },
-    setClickedInterval({ date, hour }) {
-      this.setInterval({ date, hour, field: "start" });
-      this.setInterval({ date, hour: hour + 1, field: "end" });
+    setClickedInterval({ date, hour, past }) {
+      if (!this.isInactiveInterval({ date, hour, past })) {
+        this.setInterval({ date, hour, field: "start" });
+        this.setInterval({ date, hour: hour + 1, field: "end" });
+      }
     },
     setInterval({ date, hour, field }) {
       const value = this.generateDate(date, hour);
@@ -193,6 +254,13 @@ export default {
       console.log(m);
     },
     checkInterval() {
+      if (this.isCovering(this.interval, this.userUnavailabilities)) {
+        this.interval.start = undefined;
+        this.interval.end = undefined;
+        this.console.error(
+          "You can't set you timeslot over an unavailable one"
+        );
+      }
       if (this.interval.start > this.interval.end) {
         this.revertInterval(this.interval, this.interval);
       }
@@ -214,7 +282,9 @@ export default {
     }
   },
   mounted() {
+    this.from.setHours(0, 0, 0, 0);
     this.to = this.from.addDays(this.days);
+    this.to.setHours(23, 59, 0, 0);
     HTTP.get(`taskInstances`).then(resp => {
       this.taskInstances = resp.data;
     });
