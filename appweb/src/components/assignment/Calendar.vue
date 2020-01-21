@@ -66,6 +66,45 @@
               ></div>
             </template>
           </v-calendar>
+          <v-menu
+            v-model="taskOpened"
+            :close-on-content-click="false"
+            :activator="taskActivator"
+            offset-x
+            :max-width="400"
+          >
+            <v-card color="grey lighten-4" min-width="350px" flat>
+              <v-toolbar :color="selectedTask.color" dark v-if="selectedTask">
+                <v-toolbar-title v-html="selectedTask.name"></v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="ma-2"
+                  outlined
+                  rounded
+                  v-if="selectedTask.meetingPlace"
+                >
+                  <v-icon left>mdi-map</v-icon>
+                  {{ selectedTask.meetingPlace.name }}
+                </v-btn>
+              </v-toolbar>
+              <v-card-subtitle class="pb-0">Supervisor</v-card-subtitle>
+              <v-card-text>
+                <supervisor-info :user="selectedTask.supervisor" />
+              </v-card-text>
+              <v-card-subtitle class="pb-0">Description</v-card-subtitle>
+              <v-card-text>
+                {{ selectedTask.description }}
+              </v-card-text>
+              <v-card-actions>
+                <v-btn text color="secondary" @click="taskOpened = false">
+                  Cancel
+                </v-btn>
+                <v-btn text color="error">
+                  Unassign
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-menu>
         </v-sheet>
       </v-col>
       <v-col sm="12" lg="3" class="mb-4 controls">
@@ -86,13 +125,15 @@
 <script>
 import "../../mixins/dateMixin";
 import AsideUser from "./AsideUser";
+import SupervisorInfo from "../user/ShortInfo";
 import { eventMixin } from "../../mixins/eventMixin";
 import { assignMixin } from "../../mixins/assignMixin";
 import { HTTP } from "../../services/httpService";
 export default {
   mixins: [eventMixin, assignMixin],
   components: {
-    AsideUser
+    AsideUser,
+    SupervisorInfo
   },
   data() {
     return {
@@ -105,19 +146,26 @@ export default {
         end: undefined
       },
       hourHeight: 25,
-      taskInstances: []
+      taskInstances: [],
+      taskOpened: false,
+      taskActivator: undefined,
+      selectedTask: {}
     };
   },
   computed: {
     calendarEvents() {
       if (this.interval.start && this.interval.end) {
+        const fakeTask = {
+          name: "Time slot",
+          description: "HR time slot selected",
+          supervisor: this.object
+        };
         const event = [
           this.generateEvent(
             this.interval.start,
             this.interval.end,
             "blue lighten-4",
-            "Time slot",
-            "HR time slot selected"
+            fakeTask
           )
         ];
         return this.events.concat(event);
@@ -247,8 +295,19 @@ export default {
       console.log(ret);
     },
     showEvent({ nativeEvent, event }) {
-      console.log(nativeEvent);
-      console.log(event);
+      const open = () => {
+        this.selectedTask = event;
+        this.taskActivator = nativeEvent.target;
+        setTimeout(() => (this.taskOpened = true), 3);
+      };
+
+      if (this.taskOpened) {
+        this.taskOpened = false;
+        setTimeout(open, 3);
+      } else {
+        open();
+      }
+      nativeEvent.stopPropagation();
     },
     log(m) {
       console.log(m);
@@ -302,5 +361,12 @@ export default {
 .hour-interval {
   width: 100%;
   height: 100%;
+}
+strong {
+  color: white;
+}
+.pl-1 strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

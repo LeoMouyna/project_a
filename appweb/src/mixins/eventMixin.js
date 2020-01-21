@@ -22,13 +22,12 @@ export const eventMixin = {
     getEventColor(event) {
       return event.color;
     },
-    generateEvent(start, end, color, name, description) {
+    generateEvent(start, end, color, task) {
       return {
-        start: this.formatDate(start, true),
-        end: this.formatDate(end, true),
+        ...task,
         color: color,
-        name: name,
-        description: description
+        start: this.formatDate(start, true),
+        end: this.formatDate(end, true)
       };
     },
     generateEventsAssignment(assignments) {
@@ -39,8 +38,7 @@ export const eventMixin = {
             taskInstance.start,
             taskInstance.end,
             taskInstance.displayedColor,
-            taskInstance.name,
-            taskInstance.description
+            taskInstance
           )
         );
       });
