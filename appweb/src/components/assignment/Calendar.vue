@@ -73,38 +73,11 @@
             offset-x
             :max-width="400"
           >
-            <v-card color="grey lighten-4" min-width="350px" flat>
-              <v-toolbar :color="selectedTask.color" dark v-if="selectedTask">
-                <v-toolbar-title v-html="selectedTask.name"></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="ma-2"
-                  outlined
-                  rounded
-                  v-if="selectedTask.meetingPlace"
-                >
-                  <v-icon left>mdi-map</v-icon>
-                  {{ selectedTask.meetingPlace.name }}
-                </v-btn>
-              </v-toolbar>
-              <v-card-subtitle class="pb-0">Supervisor</v-card-subtitle>
-              <v-card-text>
-                <supervisor-info :user="selectedTask.supervisor" />
-              </v-card-text>
-              <v-card-subtitle class="pb-0">Description</v-card-subtitle>
-              <v-card-text>
-                {{ selectedTask.description }}
-              </v-card-text>
-              <v-card-actions>
-                <v-btn text color="secondary" @click="taskOpened = false">
-                  Cancel
-                </v-btn>
-                <v-btn text color="error">
-                  Unassign
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-menu>
+            <event-details
+              :event="selectedTask"
+              @detail-close="taskOpened = false"
+              @detail-unassign="sendUnassign"
+          /></v-menu>
         </v-sheet>
       </v-col>
       <v-col sm="12" lg="3" class="mb-4 controls">
@@ -125,7 +98,7 @@
 <script>
 import "../../mixins/dateMixin";
 import AsideUser from "./AsideUser";
-import SupervisorInfo from "../user/ShortInfo";
+import EventDetails from "../event/Details";
 import { eventMixin } from "../../mixins/eventMixin";
 import { assignMixin } from "../../mixins/assignMixin";
 import { HTTP } from "../../services/httpService";
@@ -133,7 +106,7 @@ export default {
   mixins: [eventMixin, assignMixin],
   components: {
     AsideUser,
-    SupervisorInfo
+    EventDetails
   },
   data() {
     return {
@@ -294,6 +267,11 @@ export default {
       const ret = this.assign(user, task, as);
       console.log(ret);
     },
+    sendUnassign(task) {
+      const ret = this.unassign(this.object, task);
+      this.taskOpened = false;
+      this.$emit("calendar-click:unassign", ret);
+    },
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedTask = event;
@@ -358,15 +336,23 @@ export default {
 </script>
 
 <style>
+.dense {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .hour-interval {
   width: 100%;
   height: 100%;
 }
-strong {
+.v-event-timed strong {
   color: white;
 }
 .pl-1 strong {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.event-card-content {
+  max-height: 150px;
+  overflow: scroll;
 }
 </style>

@@ -76,6 +76,30 @@ export const assignMixin = {
         }
         return { user, taskInstance };
       } else return { user, taskInstance };
+    },
+    unassign(user, taskInstance) {
+      let requiredUsersSlot = taskInstance.requiredUsers.find(required => {
+        return required.assigned.map(user => user.id).includes(user.id);
+      });
+      if (requiredUsersSlot) {
+        const userIndex = requiredUsersSlot.assigned
+          .map(user => user.id)
+          .indexOf(user.id);
+        requiredUsersSlot.assigned.splice(userIndex, 1);
+        let requiredIndex = -1;
+        if ("team" in requiredUsersSlot) {
+          requiredIndex = taskInstance.requiredUsers
+            .map(required => required.team.id)
+            .indexOf(requiredUsersSlot.team.id);
+        } else {
+          requiredIndex = taskInstance.requiredUsers
+            .map(required => required.id)
+            .indexOf(user.id);
+        }
+        taskInstance.requiredUsers.splice(requiredIndex, 1);
+        taskInstance.requiredUsers.push(requiredUsersSlot);
+      }
+      return taskInstance;
     }
   }
 };

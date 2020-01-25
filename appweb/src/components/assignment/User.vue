@@ -6,6 +6,7 @@
       :name="displayUserName(user)"
       :object="user"
       :events="generateEventsAssignment(assignments)"
+      @calendar-click:unassign="updateAssignments"
     />
   </section>
 </template>
@@ -42,6 +43,13 @@ export default {
         }
       );
       this.user = user;
+    },
+    updateAssignments(taskInstance) {
+      const assignmentIndex = this.assignments
+        .map(assign => assign.id)
+        .indexOf(taskInstance.id);
+      this.assignments.splice(assignmentIndex, 1);
+      console.log("Should send to api a PUSH with: ", taskInstance);
     }
   },
   mixins: [userMixin, eventMixin]
