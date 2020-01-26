@@ -1,37 +1,24 @@
 <template>
-  <b-tag :type="`is-${team.name.toKebabCase()}`">{{ team.name }}</b-tag>
+  <b-tag :style="{ backgroundColor: team.color, color: textColor }">{{
+    team.name.toLowerCase()
+  }}</b-tag>
 </template>
 
 <script>
 import "../../mixins/stringMixin";
+import color from "color";
 export default {
+  computed: {
+    textColor() {
+      if (this.team.color) {
+        return color(this.team.color).isLight() ? "#000000" : "#ffffff";
+      } else return "#ffffff";
+    }
+  },
   props: {
     team: Object
   }
 };
 </script>
 
-<style>
-.is-hard {
-  background-color: #f77d2c !important;
-}
-.is-communication {
-  background-color: #842cf7 !important;
-}
-.is-moth {
-  background-color: #f72cba !important;
-}
-.is-human-ressources {
-  background-color: #f06292 !important;
-}
-.is-catering {
-  background-color: #c0ca33 !important;
-}
-.is-soft {
-  background-color: #ffa000 !important;
-}
-
-.tag * {
-  color: white;
-}
-</style>
+<style></style>

@@ -45,6 +45,10 @@
           <v-col cols="12" md="5">
             <v-color-picker v-model="team.color" hide-inputs></v-color-picker>
           </v-col>
+          <v-col cols="12" md="2">
+            <h2>Preview:</h2>
+            <label-team :team="team" />
+          </v-col>
         </v-row>
       </v-form>
       <v-divider></v-divider>
@@ -70,8 +74,12 @@
 </template>
 
 <script>
+import LabelTeam from "../team/Label";
 export default {
   name: "Team",
+  components: {
+    LabelTeam
+  },
   data: () => ({
     valid: false,
     team: {
