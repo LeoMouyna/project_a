@@ -10,5 +10,5 @@ GRANT ALL PRIVILEGES ON project_a.* TO 'project_a'@'localhost';
 EOF
 
 echo '{
-  "pwd_project_a": "$project_a_pwd"
+  "pwd_project_a": "'$project_a_pwd'"
 }' > assets/json/pwd.json
