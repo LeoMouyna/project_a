@@ -33,6 +33,17 @@ export const dateMixin = {
         return 1;
       } else return 0;
     },
+    // Used for sort:
+    // If interval1 take more time than interval2 => return 1
+    // If interval1 take less time than interval2 => return -1
+    // If both intervals take the same time => return 0
+    compareDateIntervalDuration(interval1, interval2) {
+      const duration1 = interval1.end - interval1.start;
+      const duration2 = interval2.end - interval2.start;
+      if (duration1 > duration1) return 1;
+      else if (duration1 < duration2) return -1;
+      else return 0;
+    },
     isIncludedIn(interval1, interval2) {
       // interval1 is inculded in interval2
       return (
