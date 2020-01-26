@@ -107,7 +107,7 @@ export default {
       {
         title: "Assign",
         icon: "mdi-account-multiple",
-        url: "/affect",
+        url: "/assign",
         items: [
           { title: "By user", url: "/users" },
           { title: "By task", url: "/tasks" }

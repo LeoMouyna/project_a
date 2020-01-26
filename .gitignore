@@ -14,5 +14,7 @@ dist/
 
 api/assets/json/config.json
 api/assets/json/pwd.json
+api/tmp/*
+api/uploads
 !/appweb/src/assets/logo.png
 !/appweb/src/assets/lazy/logo.png

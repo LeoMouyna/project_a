@@ -16,16 +16,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "show" */ "../views/Show.vue")
   },
   {
-    path: "/affect",
-    name: "affect",
+    path: "/assign",
+    name: "assign",
     component: () =>
-      import(/* webpackChunkName: "affect" */ "../views/Affect.vue")
+      import(/* webpackChunkName: "assign" */ "../views/Assign.vue")
   },
   {
-    path: "/affect/users",
-    name: "affectUsers",
+    path: "/assign/users",
+    name: "assignUsers",
     component: () =>
-      import(/* webpackChunkName: "affect" */ "../views/Affect.vue")
+      import(/* webpackChunkName: "assign" */ "../views/Assign.vue")
   },
   {
     path: "/create/user",

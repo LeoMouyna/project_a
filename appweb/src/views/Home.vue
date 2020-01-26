@@ -19,7 +19,7 @@
         </v-img>
         <h1>
           Welcome home, use the navigation menu on the left to create, show and
-          affect
+          assign
         </h1>
       </v-col>
     </v-row>

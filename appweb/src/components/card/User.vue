@@ -225,7 +225,7 @@
         <v-btn
           color="primary"
           text
-          @click="routerPush('/affect/by_user/' + user.id)"
+          @click="routerPush('/assign/users/' + user.id)"
         >
           {{ $t("Assign") }}
         </v-btn>
