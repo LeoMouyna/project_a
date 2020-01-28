@@ -7,7 +7,7 @@
     dark
     @transitionend="changeDrawerStatus"
   >
-    <v-list flat nav>
+    <v-list flat nav v-if="store.isLogged()">
       <v-list-item>
         <v-col class="align-center" absolute>
           <v-img src="@/assets/logo.png" alt="24h logo"></v-img>
@@ -64,15 +64,24 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-list>
+    <v-list v-else>
+      <v-list-item>
+        <v-col class="align-center" absolute>
+          <v-img src="@/assets/logo.png" alt="24h logo"></v-img>
+        </v-col>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 import { eventBus } from "../main";
+import { store } from "../store";
 
 export default {
   name: "NavigationMenu",
   data: () => ({
+    store: store,
     user: null,
     selected: null,
     panel: [],
