@@ -6,6 +6,10 @@ import vuetify from "./plugins/vuetify";
 import config from "./config";
 
 import axios from "axios";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
+
+Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 
