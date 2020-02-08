@@ -38,6 +38,9 @@ Vue.component("vue-phone-number-input", VuePhoneNumberInput);
 
 import { i18n } from "./utils/i18n";
 
+import CKEditor from "@ckeditor/ckeditor5-vue";
+Vue.use(CKEditor);
+
 new Vue({
   router,
   vuetify,

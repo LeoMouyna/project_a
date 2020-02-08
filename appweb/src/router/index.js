@@ -46,6 +46,14 @@ const routes = [
       )
   },
   {
+    path: "/create/task",
+    name: "create_task",
+    component: () =>
+      import(
+        /* webpackChunkName: "create_task" */ "../components/create/Task.vue"
+      )
+  },
+  {
     path: "/show/user",
     name: "show_user",
     component: () =>
