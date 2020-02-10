@@ -228,7 +228,12 @@ import axios from "axios";
 const userRequest = new UserRequest();
 const specialityRequest = new SpecialityRequest();
 
+import VuePhoneNumberInput from "vue-phone-number-input/dist/vue-phone-number-input.common";
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
 export default {
+  components: {
+    VuePhoneNumberInput
+  },
   name: "User",
   data: () => ({
     pagination: 0,

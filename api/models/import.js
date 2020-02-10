@@ -2,6 +2,8 @@ module.exports = function(sequelize, Sequelize){
     let db = {};
 
     db.Specialty = require('./specialty')(sequelize, Sequelize);
+    db.Domain = require('./domain')(sequelize, Sequelize);
+    db.Institution = require('./institution')(sequelize, Sequelize);
     db.User = require('./user')(sequelize, Sequelize, db.Specialty);
     db.Team = require('./team')(sequelize, Sequelize, db.User);
     db.Notification = require('./notification')(sequelize, Sequelize, db.User, db.Team);

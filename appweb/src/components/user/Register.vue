@@ -1,56 +1,35 @@
 <template>
   <section>
-    <b-field label="Email" label-position="on-border" custom-class="is-medium">
-      <b-input
-        size="is-medium"
-        placeholder="Email"
-        type="email"
-        icon="email"
-        v-model="user.email"
-        required
-      >
-      </b-input>
-    </b-field>
-    <b-field
-      label="Password"
-      label-position="on-border"
-      custom-class="is-medium"
-    >
-      <b-input
-        size="is-medium"
-        type="password"
-        placeholder="Password"
-        icon="lock"
-        minlength="10"
-        password-reveal
-        v-model="user.password"
-        required
-      >
-      </b-input>
-    </b-field>
-    <b-field
-      label="Password checker"
-      label-position="on-border"
-      custom-class="is-medium"
-    >
-      <b-input
-        size="is-medium"
-        type="password"
-        placeholder="Retype your password"
-        icon="lock"
-        minlength="10"
-        password-reveal
-        v-model="passwordChecker"
-        required
-      >
-      </b-input>
-    </b-field>
+    <b-steps>
+      <b-step-item label="Account" icon="account-key" :clickable="true">
+        <account :user="user" :passwordChecker="passwordChecker" />
+      </b-step-item>
+      <b-step-item label="Profile" icon="account" :clickable="true">
+        <profile :user="user" />
+      </b-step-item>
+      <b-step-item label="More info" icon="account-plus" :clickable="true">
+        <personal-info :user="user" />
+      </b-step-item>
+      <b-step-item label="Licence" icon="car" :clickable="true">
+        <licence :user="user" />
+      </b-step-item>
+    </b-steps>
     <b-button type="is-primary" expanded size="is-medium">Register</b-button>
   </section>
 </template>
 
 <script>
+import Account from "../forms/Account";
+import Profile from "../forms/Profile";
+import Licence from "../forms/Licence";
+import PersonalInfo from "../forms/PersonalInfo";
 export default {
+  components: {
+    Account,
+    Profile,
+    Licence,
+    PersonalInfo
+  },
   data() {
     return {
       user: {
@@ -58,7 +37,11 @@ export default {
         surname: undefined,
         lastname: undefined,
         email: undefined,
-        password: undefined
+        password: undefined,
+        picture: undefined,
+        licence: undefined,
+        hasLicence: false,
+        phoneNumber: undefined
       },
       passwordChecker: undefined
     };
@@ -66,4 +49,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

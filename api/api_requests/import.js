@@ -8,6 +8,8 @@ module.exports = function(app, sequelize, models, Sequelize){
     require('./equipment')(app, sequelize, models);
     require('./notification')(app, sequelize, models);
     require('./specialty')(app, sequelize, models);
+    require('./domain')(app, sequelize, models);
+    require('./institution')(app, sequelize, models);
     require('./task')(app, sequelize, models);
     require('./team')(app, sequelize, models);
     require('./user')(app, sequelize, models);
